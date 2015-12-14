@@ -18,7 +18,8 @@ testMiss = X2test(:,missIdx);
 %testProv = provideData;
 
 %% learn PCA from full voxel images
-missVoxel = simplePCA(60,train,testProv,missIdx,provideIdx);
+%missVoxel = simplePCA(80,train,testProv,missIdx,provideIdx);
+missVoxel = kmeanRecon(200,train,testProv,missIdx,provideIdx);
 
 %% calculate erro
 if doTest
