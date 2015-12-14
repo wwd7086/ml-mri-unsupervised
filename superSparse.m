@@ -19,7 +19,8 @@ function missVoxel = superSparse(numPC, train,testProv,missIdx,provideIdx)
     
     %% find sparse coding using dictionary
     % parameter of the optimization procedure are chosen
-    param.L=20; % not more than 20 non-zeros coefficients (default: min(size(D,1),size(D,2)))
+    param.lambda = 0;
+    param.L=256; % not more than 20 non-zeros coefficients (default: min(size(D,1),size(D,2)))
     param.eps=0.01; % threshold for ther residual
     param.numThreads=-1; % number of processors/cores to use; the default choice is -1
                      % and uses all the cores of the machine
@@ -31,6 +32,7 @@ function missVoxel = superSparse(numPC, train,testProv,missIdx,provideIdx)
     fullProv = zeros(size(D,1),size(testProv,1));
     fullProv(provideIdx,:) = testProv';
     alpha=mexOMPMask(fullProv,D,mask,param);
+    %alpha=mexLassoMask(fullProv,D,mask,param);
     t = toc;
     fprintf('%f signals processed per second\n',size(testProv,1)/t);
     

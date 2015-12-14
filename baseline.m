@@ -13,7 +13,7 @@ start_spams;
 addpath KMeans++;
 
 %% inputs
-isTest = false;
+isTest = true;
 if isTest
     doTest = true;
     doGen = false;
@@ -29,8 +29,11 @@ end
 
 %% learn PCA from full voxel images
 %missVoxel = simplePCA(80,train,testProv,missIdx,provideIdx);
+%missVoxel = eventPCA(80,train,testProv,missIdx,provideIdx);
 %missVoxel = kmeanRecon(200,train,testProv,missIdx,provideIdx);
-missVoxel = superSparse(200,train,testProv,missIdx,provideIdx);
+%missVoxel = superSparse(200,train,testProv,missIdx,provideIdx);
+%missVoxel = nnSearch(200,train,testProv,missIdx,provideIdx);
+missVoxel = simpleRegression(80,train,testProv,missIdx,provideIdx);
 
 %% calculate erro
 if doTest
