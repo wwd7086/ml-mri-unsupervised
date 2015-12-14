@@ -10,7 +10,8 @@ function missVoxel = superSparse(numPC, train,testProv,missIdx,provideIdx)
     % D m*p  m->num of features
     % train' m*n
     tic
-    D = mexTrainDL_Memory(train',param); %m*p
+    %D = mexTrainDL_Memory(train',param); %m*p
+    load sparse.mat
     t=toc;
     fprintf('time of computation for Dictionary Learning: %f\n',t);
     save('sparse.mat','D');
@@ -19,20 +20,22 @@ function missVoxel = superSparse(numPC, train,testProv,missIdx,provideIdx)
     %% find sparse coding using dictionary
     % parameter of the optimization procedure are chosen
     param.L=20; % not more than 20 non-zeros coefficients (default: min(size(D,1),size(D,2)))
-    param.eps=0.01; %
+    param.eps=0.01; % threshold for ther residual
     param.numThreads=-1; % number of processors/cores to use; the default choice is -1
                      % and uses all the cores of the machine
     
-    mask = zeros(size(testProv'));
-    mask(provideIdx,:) = 1;
+    mask = false(size(D,1),size(testProv,1));
+    mask(provideIdx,:) = true;
     tic
     % alpha p*n
-    alpha=mexOMPMask(testProv',D,mask,param);
+    fullProv = zeros(size(D,1),size(testProv,1));
+    fullProv(provideIdx,:) = testProv';
+    alpha=mexOMPMask(fullProv,D,mask,param);
     t = toc;
     fprintf('%f signals processed per second\n',size(testProv,1)/t);
     
     % reconstruct
-    allVoxel = D*alpha %m*p*p*n = m*n
+    allVoxel = D*alpha; %m*p*p*n = m*n
     missVoxel = allVoxel(missIdx,:)';
 
 end

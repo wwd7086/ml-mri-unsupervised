@@ -13,7 +13,7 @@ start_spams;
 addpath KMeans++;
 
 %% inputs
-isTest = true;
+isTest = false;
 if isTest
     doTest = true;
     doGen = false;
