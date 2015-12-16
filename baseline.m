@@ -13,7 +13,7 @@ start_spams;
 addpath KMeans++;
 
 %% inputs
-isTest = true;
+isTest = false;
 if isTest
     doTest = true;
     doGen = false;
@@ -33,7 +33,10 @@ end
 %missVoxel = kmeanRecon(200,train,testProv,missIdx,provideIdx);
 %missVoxel = superSparse(200,train,testProv,missIdx,provideIdx);
 %missVoxel = nnSearch(200,train,testProv,missIdx,provideIdx);
-missVoxel = simpleRegression(80,train,testProv,missIdx,provideIdx);
+%missVoxel = simpleRegression(80,train,testProv,missIdx,provideIdx);
+%missVoxel = simpleLaplacian(80,train,testProv,missIdx,provideIdx);
+%missVoxel = simplePCA_SVR(65,train,provideData,missIdx,provideIdx);
+missVoxel = simpleSVR(65,train,provideData,missIdx,provideIdx);
 
 %% calculate erro
 if doTest
