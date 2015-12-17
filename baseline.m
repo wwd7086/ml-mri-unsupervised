@@ -6,6 +6,7 @@ load('full.mat');
 load('provideIdx.mat');
 load('missIdx.mat');
 load('provideData_1000.mat');
+load('events_1000.mat');
 
 % load libs
 addpath spams-matlab/build;
@@ -39,9 +40,11 @@ end
 %missVoxel = svRegression(80,vtrain,testProv,missIdx,provideIdx);
 %missVoxel = svliRegression(80,vtrain,testProv,missIdx,provideIdx);
 %missVoxel = superNeural(80,vtrain,testProv,missIdx,provideIdx);
-%missVoxel = simpleLaplacian(80,train,testProv,missIdx,provideIdx);
-%missVoxel = simplePCA_SVR(65,train,provideData,missIdx,provideIdx);
-missVoxel = simpleSVR(65,train,provideData,missIdx,provideIdx);
+%missVoxel = simpleLaplacian(80,vtrain,testProv,missIdx,provideIdx);
+%missVoxel = simplePCA_SVR(65,vtrain,provideData,missIdx,provideIdx);
+%missVoxel = simpleSVR(65,vtrain,provideData,missIdx,provideIdx);
+missVoxel = simpleJW(65,vtrain,provideData,missIdx,provideIdx);
+%missVoxel = simpleEvents(65,vtrain,provideData,missIdx,provideIdx,events);
 
 %% calculate erro
 if doTest

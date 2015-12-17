@@ -13,10 +13,12 @@ numTest = size(testProv,1);
 % pc = v(:,1:numPC);
 
 % normalize data
+norm_train = train - min(train(:));
+norm_train = norm_train ./ max(norm_train(:));
+% train_norm = norm(train);
+% norm_train = train / train_norm;
 % norm_train = train - min(train(:));
-% norm_train = norm_train ./ max(norm_train(:));
-train_norm = norm(train);
-norm_train = train / train_norm;
+% norm_train = normr(norm_train);
 
 % norm_testProv = testProv - min(testProv(:));
 % norm_testProv = norm_testProv ./ max(norm_testProv(:));
@@ -42,7 +44,7 @@ parfor i=1:numTest
     size(norm_train(:,missIdx))    
     
 %     model = svmtrain(norm_testProv(i,:)', A_prov', '-s 3 -t 2 -g 0.01 -c 300 -p 0.1 -h 0');
-    model = svmtrain(testProv(i,:)', A_prov', '-s 3 -t 2 -g 0.05 -c 225 -p 0.1 -h 0');
+    model = svmtrain(testProv(i,:)', A_prov', '-s 3 -t 2 -c 99 -p 0.2');
     %'-s 3 -t 2 -g 0.05 -c 150 -p 0.1 -h 0' pca 80 score 68.0
     %'-s 3 -t 2 -g 0.05 -c 150 -p 0.1 -h 0' pca 65 score 67.8
     %'-s 3 -t 2 -g 0.05 -c 150 -p 0.01 -h 0' pca 65

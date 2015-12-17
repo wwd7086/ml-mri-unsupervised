@@ -19,8 +19,9 @@ for i=1:numTest
     %% Support vector regression
     % Get block of given data from training
     A_prov = pc(provideIdx,:);    
+    
     % block of given 'missing' data from test is testProv
-    model = svmtrain(testProv(i,:)', A_prov, '-s 3 -t 2 -g 0.05 -c 150 -p 0.1 -h 0');
+    model = svmtrain(testProv(i,:)', A_prov, '-s 3 -t 2 -g 0.01 -c 97 -p 0.2 -h 0');
     %'-s 3 -t 2 -g 0.05 -c 150 -p 0.1 -h 0' pca 80 score 68.0
     %'-s 3 -t 2 -g 0.05 -c 150 -p 0.1 -h 0' pca 65 score 67.8
     %'-s 3 -t 2 -g 0.05 -c 150 -p 0.01 -h 0' pca 65
